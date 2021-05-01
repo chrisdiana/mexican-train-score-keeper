@@ -39,7 +39,7 @@ var app = new Vue({
       light: {
       primary: '#f98eb2',
       secondary: '#b0bec5',
-      accent: '#8c9eff',
+      accent: '#cc87d5',
       error: '#b71c1c',
       },
       },

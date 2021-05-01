@@ -58,8 +58,12 @@
     <v-app class="main">
 
       <v-main class="overlay">
-              <v-app-bar dense class="text-center">
-              <v-img src="assets/img/logo.png"
+              <v-app-bar
+                color="primary"
+                dense
+                dark
+                class="text-center">
+              <v-img src="assets/img/icons/android-chrome-192x192.png"
               contain
               max-height="30"
               max-width="30"></v-img>
@@ -71,7 +75,7 @@
           <div v-if="tab === 0">
 
             <v-btn block
-              color="primary"
+              color="accent"
               class="mb-5 mt-2" @click="openNewGameDialog">
               New Game
               <v-icon right dark>mdi-plus</v-icon>
@@ -101,7 +105,7 @@
 
           <div v-if="tab === 1" style="padding-bottom: 100px">
           <v-card style="background: rgba(250, 250, 250, 0.75);">
-            
+
             <div class="pa-3">
               <h3 class="ma-0">Scorecard</h3>
               <p style="font-size:14px;" class="pa-0 ma-0">Start Player: {{ game.players[game.currentPlayerIndex] }}</p>
@@ -251,7 +255,9 @@
 
 
         <!-- Nav -->
-        <v-bottom-navigation v-model="tab" color="primary" grow fixed>
+        <v-bottom-navigation v-model="tab" color="#fff"
+          style="background: #f98eb2 !important"
+          dark grow fixed>
           <v-btn>
             <span>Recents</span>
             <v-icon>mdi-history</v-icon>

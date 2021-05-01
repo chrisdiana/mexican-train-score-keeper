@@ -214,6 +214,22 @@ var app = new Vue({
         });
       });
     },
+    async deleteGame(uid) {
+      const result = await localforage.removeItem(`@mts/game/${uid}`);
+      let data = await localforage.getItem(`@mts/data`);
+      data = JSON.parse(data);
+      var gameIdx = data.games.findIndex(i => i.uid == uid);
+      data.games.splice(gameIdx, 1);
+      console.log(data);
+      localforage.setItem(`@mts/data`, JSON.stringify(data)).then(() => {
+        localforage.getItem(`@mts/data`).then(data => {
+          if(data) {
+            var d = JSON.parse(data);
+            this.games = d.games;
+          }
+        });
+      });
+    },
     async saveGame() {
       const game = await localforage.setItem(`@mts/game/${this.game.uid}`, JSON.stringify(this.game));
     },

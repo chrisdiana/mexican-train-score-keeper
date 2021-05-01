@@ -41,9 +41,12 @@
 
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="assets/lib/vuetify.min.css" rel="stylesheet">
 
   <style>
+    html, body {
+      background: #f98eb2;
+    }
     .main {
       background-image: url('https://images.unsplash.com/photo-1523380360198-653413ad178b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80') !important;
       background-size: cover !important;
@@ -51,11 +54,12 @@
     .overlay {
       background: rgba(250, 250, 250, 0.35);
     }
+    [v-cloak] { display: none; }
   </style>
 </head>
 <body>
   <div id="app">
-    <v-app class="main">
+    <v-app class="main" v-cloak>
 
       <v-main class="overlay">
               <v-app-bar
@@ -90,12 +94,18 @@
                   <tr>
                     <th>ID</th>
                     <th>Date</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="game in games" :key="game.uid" @click="openGame(game.uid)">
                     <td>{{ game.uid }}</td>
                     <td>{{ game.date | formatDate }}</td>
+                    <td>
+                      <v-icon small @click.stop.prevent="deleteGame(game.uid)">
+                        mdi-delete
+                      </v-icon>
+                    </td>
                   </tr>
                 </tbody>
               </template>
@@ -273,10 +283,10 @@
     </v-app>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.9.0/localforage.min.js"></script>
+  <script src="assets/lib/vue.js"></script>
+  <script src="assets/lib/vuetify.js"></script>
+  <script src="assets/lib/moment.min.js"></script>
+  <script src="assets/lib/localforage.min.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
 </html>

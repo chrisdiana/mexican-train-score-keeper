@@ -1,0 +1,43 @@
+{
+  "name": "Mexican Train",
+  "short_name": "Mexican Train Score Keeper",
+  "description": "Mexican Train Score Keeper",
+  "categories": ["utilities", "tools"],
+  "lang": "en-US",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f98eb2",
+  "theme_color": "#f98eb2",
+  "icons": [
+    {
+      "src": "assets/img/icons/128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icons/144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icons/152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icons/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icons/256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icons/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

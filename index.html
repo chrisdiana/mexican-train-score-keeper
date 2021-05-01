@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Mexican Train Score Keeper</title>
+  <meta name="description" content="Mexican Train Score Keeper">
+  <meta name="application-name" content="Mexican Train Score Keeper">
+  <meta name="author" content="chrisdiana">
+  <meta name="cpwa" content="Mexican Train Score Keeper">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Mexican Train Score Keeper">
+
+  <meta name="msapplication-config" content="assets/img/icons/browserconfig.xml">
+  <meta name="msapplication-TileColor" content="#f98eb2">
+  <meta name="theme-color" content="#f98eb2">
+
+  <meta property="og:image" content="assets/img/icons/android-chrome-512x512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/icons/favicon-16x16.png">
+  <link rel="manifest" href="assets/img/icons/site.webmanifest">
+  <link rel="mask-icon" href="assets/img/icons/safari-pinned-tab.svg" color="#f98eb2">
+  <link rel="shortcut icon" href="assets/img/icons/favicon.ico">
+
+  <link href="assets/img/splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+  <link href="assets/img/splash/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+
+  <link rel="manifest" href="manifest.json">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+
+  <style>
+    .main {
+      background-image: url('https://images.unsplash.com/photo-1523380360198-653413ad178b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80') !important;
+      background-size: cover !important;
+    }
+    .overlay {
+      background: rgba(250, 250, 250, 0.35);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <v-app class="main">
+
+      <v-main class="overlay">
+              <v-app-bar dense class="text-center">
+              <v-img src="assets/img/logo.png"
+              contain
+              max-height="30"
+              max-width="30"></v-img>
+               <v-toolbar-title class="ml-3" style="font-size: 16px;">Mexican Train Scorecard</v-toolbar-title>
+      </v-app-bar>
+        <v-container>
+
+
+          <div v-if="tab === 0">
+
+            <v-btn block
+              color="primary"
+              class="mb-5 mt-2" @click="openNewGameDialog">
+              New Game
+              <v-icon right dark>mdi-plus</v-icon>
+            </v-btn>
+
+            <v-card style="background: rgba(250, 250, 250, 0.75);">
+              <h3 class="pa-3">Recent Games</h3>
+            <v-simple-table>
+
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="game in games" :key="game.uid" @click="openGame(game.uid)">
+                    <td>{{ game.uid }}</td>
+                    <td>{{ game.date | formatDate }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </v-card>
+          </div>
+
+          <div v-if="tab === 1" style="padding-bottom: 100px">
+          <v-card style="background: rgba(250, 250, 250, 0.75);">
+            
+            <div class="pa-3">
+              <h3 class="ma-0">Scorecard</h3>
+              <p style="font-size:14px;" class="pa-0 ma-0">Current Player: {{ game.players[game.currentPlayerIndex] }}</p>
+              <p style="font-size:10px;" class="pa-0 ma-0">{{ game.uid }}</p>
+            </div>
+            <v-simple-table>
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th>Round</th>
+                    <th v-for="player in game.players">{{ player }}</th>
+                    <th>Winner</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(round, idx) in game.scores" :key="idx" @click="openEditRoundDialog(idx)">
+                    <td>{{ round.round }}</td>
+                    <td v-for="player in Object.keys(game.scores[idx].players)">
+                      {{ game.scores[idx].players[player] }}
+                    </td>
+                    <td>{{ round.winner }}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Wins</b></td>
+                    <td v-for="player in game.players">
+                      <b>{{ game.wins.players[player] }}</b>
+                    </td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td v-for="player in game.players">
+                      <b>{{ game.summary.players[player] }}</b>
+                    </td>
+                    <td><b>{{ game.summary.winner }}</b></td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+            </v-card>
+          </div>
+
+    </v-container>
+
+    <!-- Update Round -->
+    <v-dialog v-model="editRoundDialog" width="500" v-if="game && game.active">
+      <v-card class="pb-5">
+        <v-card-title class="headline grey lighten-2">
+          Round {{ game.scores[selectedRoundIndex].round }}
+        </v-card-title>
+        <v-card-text class="mt-5">
+          <div v-for="player in game.players">
+            <v-text-field
+              v-model="editRound[player]"
+              type="number"
+              :label="`${player} Score`"
+              ></v-text-field>
+          </div>
+        </v-card-text>
+          <v-card-actions>
+            <v-btn block @click="updateRound" color="primary">Save</v-btn>
+          </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- New Game -->
+    <v-dialog
+      v-model="newGameDialog"
+      width="500"
+    >
+      <v-card v-if="game">
+        <v-card-title class="headline grey lighten-2">
+          Game Setup
+        </v-card-title>
+
+        <v-card-text class="mt-5">
+        <h3>How many rounds?</h3>
+           <v-slider
+                     class="my-5"
+                       v-model="game.roundLimit"
+                                 thumb-label="always"
+                                 max="12"
+                                         ></v-slider>
+        <v-checkbox
+                v-if="lastGamePlayers.length"
+                v-model="useLastGamePlayers"
+                @click="setLastGamePlayers"
+                label="Use Last Game Players"></v-checkbox>
+
+        <div v-if="!useLastGamePlayers">
+            <h3>Add Players</h3>
+
+             <v-text-field
+              v-model="playerInput"
+              hint="Enter a player name"
+              label="Player name"
+              ></v-text-field>
+
+            <v-btn
+              block
+              class="my-5"
+              :disabled="!playerInput.length"
+              @click="addPlayer"
+            >
+              Add Player
+            </v-btn>
+
+                </div>
+
+
+            <h3>Players</h3>
+
+            <v-chip
+              v-for="(player, idx) in game.players"
+              :key="idx"
+                class="ma-2"
+                close
+                                @click:close="game.players.splice(idx, 1)"
+                            >
+                            {{ player }}
+                  </v-chip>
+
+               <v-select
+                v-if="game.players.length"
+                v-model="game.startPlayer"
+                class="mt-5"
+                :items="game.players"
+                label="Starting Player"
+                ></v-select>
+        </v-card-text>
+
+
+        <v-card-actions>
+          <v-btn
+            color="primary"
+            block
+            :disabled="game.players.length < 2 || !game.startPlayer.length"
+            @click="newGame"
+          >
+            Start Game
+          </v-btn>
+        </v-card-actions>
+      </v-card-text>
+      </v-card>
+    </v-dialog>
+
+
+        <!-- Nav -->
+        <v-bottom-navigation v-model="tab" color="primary" grow fixed>
+          <v-btn>
+            <span>Recents</span>
+            <v-icon>mdi-history</v-icon>
+          </v-btn>
+
+          <v-btn :disabled="!game || !game.active">
+            <span>Scorecard</span>
+            <v-icon>mdi-playlist-edit</v-icon>
+          </v-btn>
+        </v-bottom-navigation>
+
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.9.0/localforage.min.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

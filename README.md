@@ -4,7 +4,7 @@
 
 <img src="assets/img/screenshot.png" alt="Mexican Train Score Keeper Screenshot" width="300">
 
-**[DEMO](https://chrisdiana.dev/mexican-train-score-keeper)**
+**[DEMO](https://chrisdiana.github.io/mexican-train-score-keeper)**
 
 #### Features
 
